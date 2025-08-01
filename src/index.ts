@@ -28,6 +28,8 @@ export interface InstallExtensionOptions {
   session?: Session;
 }
 
+type ExtensionApi = Pick<Session, 'getAllExtensions', 'removeListener', 'removeExtension', 'loadExtension', 'on'>;
+
 /**
  * @param extensionReference Extension or extensions to install
  * @param options Installation options
@@ -74,8 +76,8 @@ export async function installExtension(
   }
 
   
-  const extensionApi: Electron.Session = 'extensions' in targetSession
-    ? (targetSession as { extensions: Electron.Session }).extensions
+  const extensionApi: ExtensionApi = 'extensions' in targetSession
+    ? (targetSession as { extensions: ExtensionApi }).extensions
     : targetSession;
   const installedExtension = extensionApi.getAllExtensions().find((e) => e.id === chromeStoreID);
 
