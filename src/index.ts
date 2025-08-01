@@ -79,7 +79,7 @@ export async function installExtension(
 
   
   const extensionApi: ExtensionApi = 'extensions' in targetSession
-    ? (targetSession as { extensions: ExtensionApi }).extensions
+    ? (targetSession as unknown as { extensions: ExtensionApi }).extensions
     : targetSession;
   const installedExtension = extensionApi.getAllExtensions().find((e) => e.id === chromeStoreID);
 
