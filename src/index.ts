@@ -28,7 +28,7 @@ export interface InstallExtensionOptions {
   session?: Session;
 }
 
-type ExtensionApi = Pick<Session, 'getAllExtensions', 'removeListener', 'removeExtension', 'loadExtension', 'on'>;
+type ExtensionApi = Pick<Session, 'getAllExtensions' | 'removeListener' | 'removeExtension' | 'loadExtension' | 'on'>;
 
 /**
  * @param extensionReference Extension or extensions to install
