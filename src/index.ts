@@ -28,7 +28,10 @@ export interface InstallExtensionOptions {
   session?: Session;
 }
 
-type ExtensionApi = Pick<Session, 'getAllExtensions' | 'removeListener' | 'removeExtension' | 'loadExtension'> & {
+type ExtensionApi = Pick<
+  Session,
+  'getAllExtensions' | 'removeListener' | 'removeExtension' | 'loadExtension'
+> & {
   on: Extract<Session['on'], (event: 'extension-unloaded', ...args: any) => any>;
 };
 
@@ -77,10 +80,10 @@ export async function installExtension(
     throw new Error(`Invalid extensionReference passed in: "${extensionReference}"`);
   }
 
-  
-  const extensionApi: ExtensionApi = 'extensions' in targetSession
-    ? (targetSession as unknown as { extensions: ExtensionApi }).extensions
-    : targetSession;
+  const extensionApi: ExtensionApi =
+    'extensions' in targetSession
+      ? (targetSession as unknown as { extensions: ExtensionApi }).extensions
+      : targetSession;
   const installedExtension = extensionApi.getAllExtensions().find((e) => e.id === chromeStoreID);
 
   if (!forceDownload && installedExtension) {
