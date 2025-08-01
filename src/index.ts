@@ -73,8 +73,10 @@ export async function installExtension(
     throw new Error(`Invalid extensionReference passed in: "${extensionReference}"`);
   }
 
-  const extensionApi: Electron.Extensions | Electron.Session =
-    (targetSession.extensions as Electron.Extensions | undefined) || targetSession;
+  
+  const extensionApi: Electron.Session = 'extensions' in targetSession
+    ? (targetSession as { extensions: Electron.Session }).extensions
+    : targetSession;
   const installedExtension = extensionApi.getAllExtensions().find((e) => e.id === chromeStoreID);
 
   if (!forceDownload && installedExtension) {
